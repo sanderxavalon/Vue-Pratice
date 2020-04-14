@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計算屬性</title>
+</head>
+<body>
+    <!--
+        1. 計算屬性
+        2. 監視
+    -->
+    <div id="app">
+        LastName<input type="text" v-model='LastName'><br>
+        FirstName<input type="text" v-model='FirstName'><br>
+        FullName1(單向)<input type="text" v-model='FullName1'><br>
+        FullName2(單向)<input type="text" v-model='FullName2'><br>
+        FullName3(雙向)<input type="text" v-model='FullName3'><br>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                LastName: 'A',
+                FirstName: 'B',
+                FullName2:'A B'
+                // It won't work if you code like this
+                // FullName: 'AB'
+            }, 
+            computed: {
+                // 甚麼時候執行? 1. 初始化 2. 相關data屬性改變
+                //計算屬性中的一個方法，該方法返回值為屬性值
+                FullName1(){
+                    console.log('computed方法調用!');
+                    return this.FirstName + ' ' + this.LastName;
+                },
+                FullName3: {
+                    // 回調函數三點注意
+                    // 1. 你定義的
+                    // 2. 沒調用
+                    // 3. 但是最後他執行了
+                    // 但是要注意
+                    // 1. 甚麼時候調用
+                    // 2. 用來幹嘛的
+                    // 計算並且返回當前屬性值
+                    get(){
+                        return this.FirstName + ' ' + this.LastName;
+                    }, 
+                    set(){
+                        
+                    }
+                }
+            }, 
+            watch: { // 配置監視器
+                FirstName: function(newValue, oldValue) {
+                    // FirstName發生變化
+                    console.log('watch方法調用!');
+                    this.FullName2 = newValue + ' ' + this.LastName
+                }
+            }
+        })
+        vm.$watch('LastName', function(value){
+           this.FullName2 = this.FirstName + ' ' + value;
+        });
+    </script>
+</body>
+</html>

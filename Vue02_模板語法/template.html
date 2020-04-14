@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+</head>
+<body>
+    
+    <div id="app">
+        <h2>1. 雙大括弧表示式</h2>
+        <p>{{msg}}</p>
+        <p>{{msg.toUpperCase()}}</p>
+        <p v-html="msg"></p>
+        <p v-text="msg"></p>
+        <h2>2. 指令一:強制數據綁定</h2>
+        <img src="imgUrl" alt="">
+        <img v-bind:src="imgUrl" alt="">
+        <!--等價下列寫法-->
+        <img :src="imgUrl" alt="">
+        <h2>3. 指令二:綁定事件監聽</h2>
+        <button v-on:click="test1">Test1</button>
+        <!--等價下列寫法-->
+        <button @click="test2('Passe Arguement Test')">Test2</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data: {
+                msg: '<a href="www.google.com">Hello<a>',
+                imgUrl: './1.jpg'
+            },
+            methods: {
+                test1(){
+                    alert('Test1 success!');
+                },
+                test2(arg){
+                    alert('傳入參數' + arg);
+                }
+            }
+        })
+    </script>
+</body>
+</html>
