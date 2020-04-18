@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>條件渲染</title>
+    <!--
+
+    -->
+</head>
+
+<body>
+    <div id="demo">
+        <input type="text" v-model="searchName">
+        <ul>
+            <li v-for="(object, index) in filteredPeople" key="index">
+                姓名{{object.name}}===年齡{{object.age}}===index{{index}}
+            </li>
+        </ul>
+
+        <button @click="setOrderType(1)">年齡升序</button>
+        <button @click="setOrderType(2)">年齡降序</button>
+        <button @click="setOrderType(0)">原本順序</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#demo',
+            data: {
+                searchName: '',
+                // 0 原本 1年升 2年降
+                orderType: 0,
+                // vue本身只監視people的指標，沒有監視該指向的對象
+                people: [{
+                        name: 'A',
+                        age: 16
+                    },
+                    {
+                        name: 'D',
+                        age: 80
+                    },
+                    {
+                        name: 'B',
+                        age: 40
+                    },
+                    {
+                        name: 'C',
+                        age: 90
+                    }
+                ]
+            },
+            methods: {
+                setOrderType(orderType) {
+                    this.orderType = orderType;
+                }
+            },
+            computed: {
+                filteredPeople() {
+                    // 定義所有相關數據
+                    const {
+                        searchName,
+                        people,
+                        orderType
+                    } = this;
+
+                    // Return
+                    let filteredArray;
+
+                    // 對person進行過濾
+                    filteredArray = people.filter(
+                        // indexOf回傳字的字串位置,-1為未找到
+                        insideObject => insideObject.name.indexOf(searchName) != -1
+                    );
+                    if (orderType != 0) {
+                        filteredArray.sort(function (obj1, obj2) {
+                            // 返回負數則obj1在前
+                            // 1升序
+                            if (orderType === 1) {
+                                return obj1.age - obj2.age
+                            }
+                            // 返回正數則obj2在前
+                            if (orderType === 2) {
+                                return obj2.age - obj1.age
+                            }
+                        })
+                    }
+                    return filteredArray;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
