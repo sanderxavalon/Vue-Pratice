@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>條件渲染</title>
+   <!--
+    1. 條件指令
+        v-if
+        v-else
+        v-show
+    2. 比較v-if, v-show
+    如果要頻繁切換v-show比較好
+    v-show 只是下display: none 雖然效果好，不過不是dom移除
+   --> 
+</head>
+<body>
+    <div id="demo">
+        <p v-if="success">成功了(v-if)</p>
+        <p v-else>失敗了(v-else)</p>
+        <p v-show="success">v-show成功</p>
+        <p v-show="!success">v-show失敗</p>
+        <!--覆負值-->
+        <button @click="success=!success">切換</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+    new Vue({
+        el: '#demo',
+        data: {
+            success: false
+
+        },
+        methods:{
+
+        }
+
+    })
+    </script>
+</body>
+</html>
