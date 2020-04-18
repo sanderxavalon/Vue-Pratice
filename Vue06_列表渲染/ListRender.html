@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>條件渲染</title>
+   <!--
+
+    --> 
+</head>
+<body>
+    <div id="demo">
+        <h2>測試v-for 迭代Array</h2>
+            <ul>
+                <li v-for="(object, index) in people" :key="index">
+                    姓名{{object.name}}
+                    年齡{{object.age}}
+                    index{{index}}
+                    <button @click="deleteObject(index)">刪除物件</button>
+                    <button @click="updateObject(index, {name: 'updated, age: NaN'})">更新物件</button>
+                </li>
+            </ul>
+        <h2>測試v-for 迭代Object</h2>
+        <ul>
+            <li v-for="(attr, key) in people[1]" :key="key">
+                {{key}}, {{attr}}
+            </li>
+        </ul>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+    new Vue({
+        el: '#demo',
+        data:{
+
+            // vue本身只監視people的指標，沒有監視該指向的對象
+            people: [
+                {
+                    name: 'A',
+                    age : 16
+                },
+                {
+                    name: 'B',
+                    age : 40
+                },
+                {
+                    name: 'C',
+                    age : 90
+                }
+            ]
+        },
+        methods: {
+            deleteObject(index){
+                // 該方法在vue監視的宿主變異方法**(有數據綁定效果)**
+                this.people.splice(index, 1);
+            },
+            updateObject(index, newObject){
+                // 並沒有改變people本身，只有改變pointer指向的對象**(無數據綁定效果)**
+                // this.people[index] = newObject;
+                // 但是直接改變pointer
+                this.people.splice(index, 1, newObject);
+            }
+
+        }
+
+    })
+    </script>
+</body>
+</html>
+
