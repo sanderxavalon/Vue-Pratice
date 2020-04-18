@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>綁定class與style</title>
+    <style>
+        .aclass{
+            color: red;
+        }
+        .bclass{
+            color: blue;
+        }
+        .cclass{
+            font-size: 40px;
+        }
+    </style>
+   <!--
+    1. 綁定Class
+    Class可以綁定String, Array, Object
+    2. 綁定Style
+    只可以綁定Object
+   --> 
+</head>
+<body>
+    <div id="demo">
+        <h2>Class綁定: :class='xxx'</h2>
+        <p :class="a"> 這是:class=字符串</p>
+        <p class="cclass":class="a"> Class可以動靜態重疊</p>
+        <p :class="{aclass: true, bclass:false}"> 這是:class=對象(寫死)</p>
+        <p :class="{aclass: isA, bclass:isB}"> 這是:class=對象(動態)</p>
+        <p :class="['aclass', 'cclass']"> 這是:class=陣列(寫死)</p>
+        <p :class="[b]"> 這是:class=陣列(動態)</p>
+
+        <h2>Style綁定</h2>
+        <p :style="{ color: ActiveColor, fontSize: fontsize + 'px'}">Style函數宣告</p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <button @click="update">更新</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+    new Vue({
+        el: '#demo',
+        data: {
+            a: 'aclass',
+            b: 'bclass',
+            isA: true,
+            isB: false,
+            ActiveColor: 'red',
+            fontsize: 12
+        },
+        methods:{
+            update(){
+                this.a = 'bclass'
+                this.isA = false,
+                this.isB = true
+                this.ActiveColor = 'green'
+                this.fontsize = 40
+            }
+        }
+
+    })
+    </script>
+</body>
+</html>
