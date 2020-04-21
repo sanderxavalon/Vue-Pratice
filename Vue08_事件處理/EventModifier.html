@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件修飾符</title>
+    <!--
+
+    -->
+  </head>
+
+  <body>
+    <div id="demo">
+      <h2>事件修飾符</h2>
+      <div
+        style="width: 200px; height: 200px; background-color: red;"
+        @click="eventModifier1"
+      >
+      <!-- Vue的阻止冒泡事件-->
+        <div
+          style="width: 100px; height: 100px; background-color: blue;"
+          @click.stop="eventModifier2"
+        ></div>
+      </div>
+      <!-- Vue的阻止默認行為-->
+      <a href="http://www.google.com" @click.prevent="eventModifier3">阻止默認行為</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+      new Vue({
+        el: "#demo",
+        methods: {
+          eventModifier1() {
+            alert("red");
+          },
+          eventModifier2(event) {
+            // 原本JS的寫法
+            // event.stopPropagation();
+            alert("blue");
+          },
+          eventModifier3(event){
+            // 原本JS的寫法
+            // event.preventDefault();
+            alert("阻止行為");
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

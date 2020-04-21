@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件觸理</title>
+    <!--
+
+    -->
+</head>
+
+<body>
+    <div id="demo">
+        <h2>事件綁定</h2>
+        <button @click="eventBinding1">按鈕1</button>
+        <button @click="eventBinding2('這是第二個按鈕')">按鈕2</button>
+        <button @click="eventBinding3">按鈕3</button>
+        <button @click="eventBinding4('這是第四顆按鈕', $event)">按鈕4</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#demo',
+            data: {
+                eventBinding1() {
+                    alert('這是第一顆按鈕');
+                },
+                eventBinding2(arg) {
+                    alert(arg);
+                },
+                eventBinding3(event) {
+                    alert(event.target.innerHTML);
+                },
+                eventBinding4(arg, event) {
+                    alert(arg + event.target.innerHTML);
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
